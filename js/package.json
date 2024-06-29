@@ -1,0 +1,12 @@
+{
+  "name": "pedrapapeltesoura",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nathan8bits",
+  "license": "ISC",
+  "type": "module"
+}
