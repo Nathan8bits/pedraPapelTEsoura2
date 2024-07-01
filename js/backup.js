@@ -4,15 +4,16 @@ var tamanhoTabuleiro = [8, 8]
 
 var tabuleiro = []
 tabuleiro[0] = new Peca([0,1], 0)
-tabuleiro[1] = new Peca([0,2], 0)
-tabuleiro[2] = new Peca([1,2], 2)
+tabuleiro[1] = new Peca([0,0], 0)
+tabuleiro[2] = new Peca([0,2], 1)
 //tabuleiro[3] = new Peca([0,3], 1)
 //tabuleiro[4] = new Peca([0,4], 2)//tesoura
 //tabuleiro[5] = new Peca([2,2], 2);
 
+
 //console.log(`index 5 - posicao: ${tabuleiro[5].posicao}; predador: ${tabuleiro[5].predador}, presa: ${tabuleiro[5].presa}`)
 
-//proxFrame(0);
+proxFrame(0);
 
 function proxFrame(index) {
     console.log(`peça considerada: [${tabuleiro[index].posicao}]; ${tabuleiro[index].tipo}`);
@@ -21,6 +22,16 @@ function proxFrame(index) {
     for(let x = -1; x < 2; x++) {  //posições vizinhas
         for(let y = -1; y < 2; y++) {
             let posiSimu = [tabuleiro[index].posicao[0]+x, tabuleiro[index].posicao[1]+y];
+            
+            /*
+            if(retornaIndex(posiSimu) != null) {
+                console.log("essa posicao já está ocupada");
+
+                if(tabuleiro[retornaIndex(posiSimu)].tipo == tabuleiro[index].tipo) {
+                    console.log("por uma peça de mesmo tipo. essa possição deve ser desconsiderada!");
+                }
+
+            }*/
 
             if(!(x== 0 && y==0) && contidoArea(posiSimu) 
                 && (retornaIndex(posiSimu) == null || tabuleiro[retornaIndex(posiSimu)].tipo != tabuleiro[index].tipo)) {
@@ -66,16 +77,15 @@ function proxFrame(index) {
     //retornar posicao de maior valor
     console.log(`MELHOR POSICAO: ${melhorPosicao(posiMov)}`)
 
-    
-    if( retornaIndex(melhorPosicao(posiMov))!=null && tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo == tabuleiro[index].presa ) {
-        tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo = tabuleiro[index].tipo
-        console.log(`FOI CONTAMINADA! peça: [${tabuleiro[retornaIndex(melhorPosicao(posiMov))].posicao}]; ${tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo}`)
-    } else if ( retornaIndex(melhorPosicao(posiMov))!=null && tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo == tabuleiro[index].predador) {
-        tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo = tabuleiro[index].tipo
-        console.log(`FOI CONTAMINADA! peça: [${tabuleiro[retornaIndex(melhorPosicao(posiMov))].posicao}]; ${tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo}`)
-    } else {
-        tabuleiro[index].posicao = melhorPosicao(posiMov);
+    /*
+    if(tabuleiro[melhorPosicao(posiMov)].tipo == tabuleiro[index].predador 
+        || tabuleiro[melhorPosicao(posiMov)].tipo == tabuleiro[index].presa  ) {
+            console.log(`FOI CONTAMINADA! peça: [${tabuleiro[i].posicao}]; ${tabuleiro[i].tipo}`)
+            tabuleiro[melhorPosicao(posiMov)].tipo = tabuleiro[index].tipo
     }
+    */
+    
+
 }
 
 console.log("chamando a função retornaIndex")

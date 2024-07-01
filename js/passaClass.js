@@ -14,8 +14,7 @@ tabuleiro[2] = new Peca([1,2], 2)
 
 //proxFrame(0);
 
-function proxFrame(index) {
-    console.log(`peça considerada: [${tabuleiro[index].posicao}]; ${tabuleiro[index].tipo}`);
+function mover(index) {
     let posiMov = [];
 
     for(let x = -1; x < 2; x++) {  //posições vizinhas
@@ -25,67 +24,38 @@ function proxFrame(index) {
             if(!(x== 0 && y==0) && contidoArea(posiSimu) 
                 && (retornaIndex(posiSimu) == null || tabuleiro[retornaIndex(posiSimu)].tipo != tabuleiro[index].tipo)) {
                 let valor = 0;
-                
-                console.log("=============================================")
-                console.log(`posição simulada: ${posiSimu}`);
-    
+
                 for(let i=0; i<tabuleiro.length; i++) { //percorrendo todas as peças do tabuleiro
                     if(tabuleiro[i] != tabuleiro[index]) {
                         if(tabuleiro[i].tipo == tabuleiro[index].predador) {
                             valor += distancia(tabuleiro[i].posicao, posiSimu);
-
-                            console.log("----------------------------------------");
-                            console.log(`predador: [${tabuleiro[i].posicao}]; ${tabuleiro[i].tipo}`);
-                            console.log(`distancia entre: ${tabuleiro[i].posicao} e ${posiSimu} = ${distancia(tabuleiro[i].posicao, posiSimu)}`);
-                            console.log(`valor: ${valor}`);
-                            console.log("----------------------------------------");
                         } else if(tabuleiro[i].tipo ==tabuleiro[index].presa) {
                             valor -= distancia(tabuleiro[i].posicao, posiSimu);
-
-                            console.log("----------------------------------------");
-                            console.log(`presa: [${tabuleiro[i].posicao}]; ${tabuleiro[i].tipo}]`);
-                            console.log(`distancia entre: ${tabuleiro[i].posicao} e ${posiSimu} = ${distancia(tabuleiro[i].posicao, posiSimu)}`);
-                            console.log(`valor: ${valor}`);
-                            console.log("----------------------------------------");
                         }
                        
                     }
                 }
                 posiMov.push([valor, posiSimu])
-                //console.log(`valor: ${valor} posicao: ${posiSimu}`)
-               
-                //posiMov.push([valor, posiMov]);//posiMuv[0]- valor; posiMuv[1] - posicao
             }
         }
     }
-    //exibindo resultados
-    for(let i=0; i<posiMov.length; i++) {
-        console.log(`VALOR PARA A POSICAO: valor: ${posiMov[i][0]}; posicao: ${posiMov[i][1]}`);
-    }
-
-    //retornar posicao de maior valor
-    console.log(`MELHOR POSICAO: ${melhorPosicao(posiMov)}`)
-
     
     if( retornaIndex(melhorPosicao(posiMov))!=null && tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo == tabuleiro[index].presa ) {
         tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo = tabuleiro[index].tipo
-        console.log(`FOI CONTAMINADA! peça: [${tabuleiro[retornaIndex(melhorPosicao(posiMov))].posicao}]; ${tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo}`)
     } else if ( retornaIndex(melhorPosicao(posiMov))!=null && tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo == tabuleiro[index].predador) {
         tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo = tabuleiro[index].tipo
-        console.log(`FOI CONTAMINADA! peça: [${tabuleiro[retornaIndex(melhorPosicao(posiMov))].posicao}]; ${tabuleiro[retornaIndex(melhorPosicao(posiMov))].tipo}`)
     } else {
         tabuleiro[index].posicao = melhorPosicao(posiMov);
     }
 }
 
-console.log("chamando a função retornaIndex")
-retornaIndex([0, 1])
+//console.log("chamando a função retornaIndex")
+//retornaIndex([0, 1])
 
 function retornaIndex(ponto){
     //retorna o index do objeto que tem a posição passada como parâmetro
     for (let i = 0; i < tabuleiro.length; i++) {
         if(ponto[0] == tabuleiro[i].posicao[0] && ponto[1]==tabuleiro[i].posicao[1]) {
-            console.log(`posicao: ${ponto} --> index: ${i}`)
             return i;
         }
     }
@@ -108,19 +78,9 @@ function melhorPosicao(matriz) {
     return posicao;
 }
 
-function exibirTodasPecas(matriz) {
-    console.log("FUNÇÃO EXIBIR TODAS AS PEÇAS")
-    matriz.forEach(p => {
-        console.log(`[${p[0]}], ${p[1]}`)
-    })
-}
-
-//console.log(contidoArea([-1, 8]))
-
 function contidoArea(ponto) {
     //Essa função responde a essa pergunta:
     //o ponto está contido na área do tabuleiro?
-    //console.log(`ponto: ${ponto}, area: ${tamanhoTabuleiro}`);
     if((ponto[0] > tamanhoTabuleiro[0] || ponto[0] < 0) 
         || (ponto[1] > tamanhoTabuleiro[1] || ponto[1] < 0)) {
             return false 
