@@ -1,10 +1,11 @@
 //aqui está a classe de peça, com seus atributos e métodos
 
 //pedra, papel, tesoura {0, 1, 2}
-
+import {tam} from './main.js'
 
 export class Peca {
-    tamanhoTabuleiro= [8, 8]
+    tamanhoTabuleiro = tam
+    //= [16, 16]
     posicao
     tipo 
     predador
@@ -18,8 +19,8 @@ export class Peca {
     }
 
     mover(tabuleiro) {
-        if (!this.mesmoTipo(tabuleiro))//verificando se todas sao do mesmo tipo
-        {                          //a peça só se moverá se houver pelo menos uma peça de tipo diferente
+        //if (!this.mesmoTipo(tabuleiro))//verificando se todas sao do mesmo tipo
+       // {                          //a peça só se moverá se houver pelo menos uma peça de tipo diferente
             let posiMov = [];
     
         for(let x = -1; x < 2; x++) {  //posições vizinhas
@@ -44,8 +45,8 @@ export class Peca {
                 }
             }
         }
-        melhorPosi = this.melhorPosicao(posiMov);
-        index = this.retornaIndex(melhorPosi, tabuleiro)
+        let melhorPosi = this.melhorPosicao(posiMov);
+        let index = this.retornaIndex(melhorPosi, tabuleiro)
 
         if( index!=null && tabuleiro[index].tipo == this.presa ) {
             tabuleiro[index].tipo = this.tipo
@@ -53,8 +54,8 @@ export class Peca {
             tabuleiro[index].tipo = this.tipo
         } else {
             console.log(`melhor posicao ${this.posicao} --> ${this.melhorPosicao(posiMov)}`)
-            //this.posicao = this.melhorPosicao(posiMov);
-            return melhorPosi;
+            this.posicao = this.melhorPosicao(posiMov);
+            
         }
         
         /*
@@ -69,7 +70,7 @@ export class Peca {
         }
         */
         
-        }
+        
     }
 
     retornaIndex(ponto, tabuleiro){
@@ -99,12 +100,13 @@ export class Peca {
     }
 
     mesmoTipo(vetor){
-        let todasMesmoTipo = false
+        let todasMesmoTipo = true
+        console.log(`mesmotipo: ${vetor[0].tipo}`)
         let tipo = vetor[0].tipo
 
         vetor.forEach(element => {
             if(element.tipo != tipo) {
-                todasMesmoTipo = true;
+                todasMesmoTipo = false;
             }
         });
 
@@ -114,8 +116,8 @@ export class Peca {
     contidoArea(ponto) {
         //Essa função responde a essa pergunta:
         //o ponto está contido na área do tabuleiro?
-        if((ponto[0] > this.tamanhoTabuleiro[0] || ponto[0] < 0) 
-            || (ponto[1] > this.tamanhoTabuleiro[1] || ponto[1] < 0)) {
+        if((ponto[0] >= this.tamanhoTabuleiro[0] || ponto[0] < 0) 
+            || (ponto[1] >= this.tamanhoTabuleiro[1] || ponto[1] < 0)) {
                 return false 
             } 
             else {

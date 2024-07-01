@@ -5,6 +5,7 @@
 }
 
 #pedraPapelTesoura { 
+    font-size: 36px;
     border: 1px solid black;  
     margin: 5%;
     width: 90%;
@@ -30,10 +31,13 @@ p {
 
  .pedra {
     background-color: blue;
+    background: url("../img/pedra.jpg") no-repeat center/cover;
  }
  .papel {
     background-color: green;
+    background: url("../img/papel1.jpg") no-repeat center/cover;
  }
  .tesoura {
     background-color: red;
+    background: url("../img/tesoura.jpg") no-repeat center/cover;
  }

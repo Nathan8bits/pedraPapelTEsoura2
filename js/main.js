@@ -4,6 +4,7 @@
 
 //variaveis do HTML
 const botoes = document.querySelectorAll(".btnPPT")//botoes.value
+botoes[0].checked = true
 const btnRun = document.querySelector("#btnRunPPT")
 let mapa = document.querySelector("#pedraPapelTesoura");
 let celulaTd = []//= document.querySelectorAll(".celulaTd");;
@@ -11,8 +12,8 @@ let celulaTd = []//= document.querySelectorAll(".celulaTd");;
 
 //variveis de estado
 var jogo = false;
-let tam = [8, 8];
-var tipoSelecao = 2;
+export let tam = [16, 16];
+var tipoSelecao = 0;
 var pecas = []
 
 import {Peca} from './Peca.js'
@@ -51,12 +52,13 @@ function clickCelula(i) {
         switch (tipoSelecao) {
             case 0:
                 celulaTd[i].classList.add("pedra")
+                
                 break;
             case 1:
                 celulaTd[i].classList.add("papel")
                 break;
             case 2:
-                celulaTd[i].classList.add("tesoura")
+                celulaTd[i].classList.add("tesoura");
                 break;
         }
 
@@ -164,11 +166,11 @@ setInterval(function (){
         
         for(let i=0; i<pecas.length; i++){
             console.log(pecas[i].posicao)
-            //removerClass(pecas[i]);
+            removerClass(pecas[i]);
             pecas[i].mover(pecas);
             console.log(pecas[i].posicao)
             atualizarClasseCelula(pecas[i])
         }
     }
     
-}, 3000)
+}, 500)
